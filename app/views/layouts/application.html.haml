@@ -1,0 +1,19 @@
+!!! 5
+%html
+  = render :partial => 'layouts/header'
+
+  %body
+    #container
+      #header
+        %h1 The Toolbox
+      #navigation
+        = render :partial => 'layouts/topbar'
+      #content
+        - if flash[:notice]
+          #notice.message= flash[:notice]
+        - elsif flash[:warning]
+          #warning.message= flash[:warning]
+
+        = yield
+      #footer
+        = render :partial => 'layouts/footer'

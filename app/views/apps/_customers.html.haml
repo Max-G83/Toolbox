@@ -1,0 +1,2 @@
+-#= form_tag '/apps/customers' do
+= select_tag :customer_id, options_for_select(App.customers.map { |customer| [customer['siteName'], customer['siteId']]})
