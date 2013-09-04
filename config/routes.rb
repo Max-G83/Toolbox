@@ -16,6 +16,8 @@ Vending::Application.routes.draw do
   end
 
   post '/apps/login', to: 'apps#login', as: 'login'
+  get '/apps/customers', to: 'apps#customers', as: 'customers'
+  post '/apps/machines', to: 'apps#machines', as: 'machines'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

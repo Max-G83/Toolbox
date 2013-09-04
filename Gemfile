@@ -67,8 +67,6 @@ gem 'haml'
 gem 'haml-rails'
 
 # for talking to Apex API
-gem 'uri'
-gem 'net/http'
 gem 'json'
 
 

@@ -8,7 +8,12 @@ This app will generate a file for exactly what should be in your machine's custo
   = text_field_tag :username, nil, :placeholder => 'username'
   = text_field_tag :password, nil, :placeholder => 'password'
   = submit_tag 'Login'
-- if @response.present? and @response.code == '200'
-  = render :partial => 'customers'
+- if flash[:customers].present?
+  = form_tag '/apps/machines' do
+    = render :partial => 'customers'
+- if flash[:machines].present?
+  = form_tag '/apps/locations' do
+    = render :partial => 'machines'
+    = submit_tag 'Make file'
 
 

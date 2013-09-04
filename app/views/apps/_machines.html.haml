@@ -1,0 +1,1 @@
+= select_tag :machine_id, options_for_select(flash[:machines].collect { |key, sub_hash| [sub_hash['deviceName'], key]}), :prompt => 'Select a machine'

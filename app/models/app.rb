@@ -42,7 +42,7 @@ class App
     url = 'http://shielded-mesa-1340.herokuapp.com/customers.json'
     customers = App.get(url).body
     customers = JSON.parse customers
-    #customers = customers.map { |customer| [customer['siteName'], customer['siteId']]}
+    customers = Hash[customers.map { |c| [c['siteId'], {'siteName' => c['siteName']}] }]
     customers
   end
 
@@ -50,6 +50,9 @@ class App
     url = 'http://shielded-mesa-1340.herokuapp.com/machines.json'
     machines = App.get(url).body
     machines = JSON.parse machines
-    machines
+    # How do I really do this?
+    tmp = {}
+    machines.each { |k,v| tmp[k] = {'deviceName' => machines[k]['deviceName'], 'deviceId' => machines[k]['deviceId'], 'siteId' => machines[k]['siteId']} }
+    tmp
   end
 end
