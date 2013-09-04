@@ -11,13 +11,11 @@ Vending::Application.routes.draw do
   root 'welcome#index'
 
   # AppsController
-  %w(locations restock_clear labels quote).each do |i|
-    get "/apps/#{i}", to: "apps##{i}", as: "#{i}"
+  %w(locations restock_clear labels quote login logout).each do |i|
+    match "/apps/#{i}", to: "apps##{i}", via: :all
   end
 
-  post '/apps/login', to: 'apps#login', as: 'login'
-  get '/apps/customers', to: 'apps#customers', as: 'customers'
-  post '/apps/machines', to: 'apps#machines', as: 'machines'
+  #post '/apps/login', to: 'apps#login', as: 'login'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

@@ -1,17 +1,10 @@
 class App
-  include ActiveModel::Conversion
-  extend ActiveModel::Naming
-
-  def initialize
-  end
-
-  def persisted?
-    false
-  end
-
-  #require 'uri'
-  #require 'net/http'
-  #require 'json'
+  #include ActiveModel::Conversion
+  #extend ActiveModel::Naming
+  #
+  #def persisted?
+  #  false
+  #end
 
   def self.base_api_url
     'http://shielded-mesa-1340.herokuapp.com/'
@@ -32,25 +25,24 @@ class App
   end
 
   def self.login(username, password)
-    url = App.base_api_url + 'login'
+    url = App.base_api_url + 'login.json'
     params = {'username' => username, 'password' => password}
-    response = App.post(url, params)
-    response
+    response = App.post(url, params).body
+    JSON.parse(response)
   end
 
   def self.customers
-    url = 'http://shielded-mesa-1340.herokuapp.com/customers.json'
+    url = url = App.base_api_url + 'customers.json'
     customers = App.get(url).body
     customers = JSON.parse customers
-    customers = Hash[customers.map { |c| [c['siteId'], {'siteName' => c['siteName']}] }]
-    customers
+    Hash[customers.map { |c| [c['siteId'], {'siteName' => c['siteName']}] }]
   end
 
   def self.machines
-    url = 'http://shielded-mesa-1340.herokuapp.com/machines.json'
+    url = url = App.base_api_url + 'machines.json'
     machines = App.get(url).body
     machines = JSON.parse machines
-    # How do I really do this?
+    # I think I can do this in one line with inject
     tmp = {}
     machines.each { |k,v| tmp[k] = {'deviceName' => machines[k]['deviceName'], 'deviceId' => machines[k]['deviceId'], 'siteId' => machines[k]['siteId']} }
     tmp

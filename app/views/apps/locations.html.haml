@@ -1,19 +1,13 @@
-%h2 Locations
-This app will generate a file for exactly what should be in your machine's customer inventory location, given the correct begin and end dates and times. To put it to use, first free any inventory related to that machine by dumping the customer inventory location into a floor location, and delete any work orders holding machine inventory off the pick list. Then "merge parts to quote" with this file (uncheck "prefer package quantities"), and sold request all items in order to allocate inventory to the quote. If anything is backordered, delete it off the sold request screen, refresh the quote, cycle in the necessary inventory, and try again. Once all line items successfully allocate to the quote, move the inventory to your customer inventory location via the "move to location" button on your pick list.
-%p
-
-= form_tag '/apps/login' do
-  %b Vending website login
-  %br
-  = text_field_tag :username, nil, :placeholder => 'username'
-  = text_field_tag :password, nil, :placeholder => 'password'
-  = submit_tag 'Login'
-- if flash[:customers].present?
-  = form_tag '/apps/machines' do
-    = render :partial => 'customers'
-- if flash[:machines].present?
-  = form_tag '/apps/locations' do
-    = render :partial => 'machines'
-    = submit_tag 'Make file'
+= content_for :app_body do
+  %h2 Locations
+  This app will generate a file for exactly what should be in your machine's customer inventory location, given the correct begin and end dates and times. To put it to use, first free any inventory related to that machine by dumping the customer inventory location into a floor location, and delete any work orders holding machine inventory off the pick list. Then "merge parts to quote" with this file (uncheck "prefer package quantities"), and sold request all items in order to allocate inventory to the quote. If anything is backordered, delete it off the sold request screen, refresh the quote, cycle in the necessary inventory, and try again. Once all line items successfully allocate to the quote, move the inventory to your customer inventory location via the "move to location" button on your pick list.
+  %p
+  - if session[:customers].present?
+    = form_tag '/apps/locations' do
+      = select_tag :customer_id, options_for_select(session[:customers].collect { |key, sub_hash| [sub_hash['siteName'], key]}, :selected => flash[:selected]), :onchange => 'this.form.submit();', :prompt => 'Select a customer'
+      - if flash[:machines].present?
+        = form_tag '/apps/locations' do
+          = select_tag :machine_id, options_for_select(flash[:machines].collect { |key, sub_hash| [sub_hash['deviceName'], key]}), :prompt => 'Select a machine'
+          = submit_tag 'Make file'
 
 

@@ -1,5 +1,19 @@
 class AppsController < ApplicationController
+  layout 'apps'
+
   def locations
+    if session[:logged_in]
+      session[:customers] = App.customers
+      session[:machines] = App.machines
+    end
+    if params[:customer_id]
+      flash[:machines] = session[:machines].select { |k,v| session[:machines][k]['siteId'] == params[:customer_id]}
+      flash[:selected] = params[:customer_id]
+      render 'locations'
+    end
+    if params[:machine_id]
+      #
+    end
   end
 
   def restock_clear
@@ -12,24 +26,17 @@ class AppsController < ApplicationController
   end
 
   def login
-    response = App.login(params[:username], params[:password])
-    if response.code != '200'
+    name = App.login(params[:username], params[:password])
+    if name.present?
+      session[:logged_in] = name['name']
+    else
       flash[:notice] = 'Login unsuccessful!'
-      redirect_to :back and return
     end
-    session[:redirect_to] = request.referer
-    redirect_to :customers
+    redirect_to :back
   end
 
-  def customers
-    # grab Apex data here so it's done less often
-    session[:customers] = App.customers
-    session[:machines] = App.machines
-    redirect_to session[:redirect_to], :flash => { :customers => session[:customers] }
-  end
-
-  def machines
-    machines = session[:machines].select { |k,v| session[:machines][k]['siteId'] == params[:customer_id]}
-    redirect_to session[:redirect_to], :flash => { :customers => session[:customers], :machines => machines }
+  def logout
+    session.destroy
+    redirect_to :back
   end
 end
