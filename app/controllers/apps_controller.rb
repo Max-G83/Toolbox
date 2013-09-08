@@ -11,8 +11,8 @@ class AppsController < ApplicationController
       flash[:selected] = params[:customer_id]
       render 'locations'
     end
-    if params[:machine_id]
-      #
+    if params[:machine_id] and params[:begin_date] and params[:begin_time]
+
     end
   end
 
@@ -37,6 +37,7 @@ class AppsController < ApplicationController
 
   def logout
     session.destroy
+    App.username, App.password = nil, nil
     redirect_to :back
   end
 end

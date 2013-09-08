@@ -9,6 +9,8 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require_self
+ *= require jquery.ui.datepicker
+ *= require jquery.ui.slider
  *= require_tree .
  */
 
@@ -75,6 +77,7 @@
 
 #footer
 {
+    font-size: 75%;
     background: #ccc;
     text-align: right;
     padding: 20px;

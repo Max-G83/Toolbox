@@ -11,6 +11,18 @@
 // about supported directives.
 //
 //= require jquery
+//= require jquery.ui.datepicker
+//= require jquery.ui.slider
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
+
+TB = {};
+TB.datepicker = $(function() {
+    $('.datepicker').datepicker();
+});
+TB.timepicker = $(function() {
+    $('.timepicker').timepicker({
+        timeFormat: "HH:mm:ss"
+    });
+});

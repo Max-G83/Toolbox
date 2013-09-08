@@ -1,6 +1,6 @@
 = content_for :app_body do
   %h2 Locations
-  This app will generate a file for exactly what should be in your machine's customer inventory location, given the correct begin and end dates and times. To put it to use, first free any inventory related to that machine by dumping the customer inventory location into a floor location, and delete any work orders holding machine inventory off the pick list. Then "merge parts to quote" with this file (uncheck "prefer package quantities"), and sold request all items in order to allocate inventory to the quote. If anything is backordered, delete it off the sold request screen, refresh the quote, cycle in the necessary inventory, and try again. Once all line items successfully allocate to the quote, move the inventory to your customer inventory location via the "move to location" button on your pick list.
+  This app will generate a file for exactly what should be in your machine's customer inventory location, given the correct begin date and time for your billing cycle, which can be found on the "create invoice" popup screen. To put it to use, first free any inventory related to that machine by dumping the customer inventory location into a floor location, and delete any work orders holding machine inventory off the pick list. Then "merge parts to quote" with this file, and allocate inventory to the quote by sold requesting all items. If anything is backordered, delete it off the sold request screen, refresh the quote, cycle in the necessary inventory, and try again. Once all line items successfully allocate to the quote, move the inventory to your customer inventory location via the "move to location" button on your pick list.
   %p
   - if session[:customers].present?
     = form_tag '/apps/locations' do
@@ -8,6 +8,6 @@
       - if flash[:machines].present?
         = form_tag '/apps/locations' do
           = select_tag :machine_id, options_for_select(flash[:machines].collect { |key, sub_hash| [sub_hash['deviceName'], key]}), :prompt => 'Select a machine'
+          = text_field_tag :begin_date, nil, :placeholder => 'Begin date', :class => 'datepicker'
+          = text_field_tag :begin_time, nil, :placeholder => 'Begin time', :class => 'timepicker'
           = submit_tag 'Make file'
-
-

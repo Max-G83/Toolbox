@@ -3,7 +3,9 @@
   %head
     %title Vending Toolbox
     = stylesheet_link_tag 'application'
+    -#= stylesheet_link_tag '//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js'
     = javascript_include_tag 'application'
+    -#= javascript_include_tag '//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js'
     = csrf_meta_tags
 
   %body
@@ -44,9 +46,9 @@
         = yield
       #footer
         %a{:href => "http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_US", :rel => "license"}
-          %img{:alt => "Creative Commons License", :src => "http://i.creativecommons.org/l/by-nc-sa/3.0/80x15.png", :style => "border-width:0"}/
+          -#%img{:alt => "Creative Commons License", :src => "http://i.creativecommons.org/l/by-nc-sa/3.0/80x15.png", :style => "border-width:0"}/
         = succeed "This" do
-          %br/
+          -#%br/
         work is licensed under a
         = succeed "." do
           %a{:href => "http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_US", :rel => "license"} Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License

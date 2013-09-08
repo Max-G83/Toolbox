@@ -61,13 +61,17 @@ group :assets do
   gem 'uglifier', '>= 1.3.0'
 end
 
-gem 'jquery-rails'
+# for datepicker
+gem 'jquery-ui-rails'
+
 gem 'haml'
 # allows generate commands to use haml instead of erb
 gem 'haml-rails'
 
 # for talking to Apex API
 gem 'json'
+
+
 
 
 
