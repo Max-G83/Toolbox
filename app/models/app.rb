@@ -15,6 +15,8 @@ class App
   #@@username = nil
   #@@password = nil
 
+  require 'net/http'
+
   def self.base_api_url
     'http://shielded-mesa-1340.herokuapp.com/'
   end

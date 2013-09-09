@@ -21,7 +21,7 @@
     <file path="/ApexAPI.rb" changelist="244136ab-648e-4d3d-9ada-0e1025a2b860" time="1378660502414" ignored="false" />
     <file path="/_machines.html.haml" changelist="244136ab-648e-4d3d-9ada-0e1025a2b860" time="1378182375973" ignored="false" />
     <file path="/_customers.html.haml" changelist="244136ab-648e-4d3d-9ada-0e1025a2b860" time="1378182363649" ignored="false" />
-    <file path="/app.rb" changelist="244136ab-648e-4d3d-9ada-0e1025a2b860" time="1378689015679" ignored="false" />
+    <file path="/app.rb" changelist="244136ab-648e-4d3d-9ada-0e1025a2b860" time="1378691340568" ignored="false" />
     <file path="/apps.html.haml" changelist="244136ab-648e-4d3d-9ada-0e1025a2b860" time="1378325193238" ignored="false" />
     <file path="/application_helper.rb" changelist="244136ab-648e-4d3d-9ada-0e1025a2b860" time="1378318620605" ignored="false" />
     <file path="/_logged_in.html.haml" changelist="244136ab-648e-4d3d-9ada-0e1025a2b860" time="1378332328524" ignored="false" />
@@ -66,7 +66,7 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="Gemfile" pinned="false" current="true" current-in-tab="true">
+          <file leaf-file-name="Gemfile" pinned="false" current="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/Gemfile">
               <provider selected="true" editor-type-id="text-editor">
                 <state line="74" column="40" selection-start="1701" selection-end="1701" vertical-scroll-proportion="1.6384364">
@@ -151,19 +151,19 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="app.rb" pinned="false" current="false" current-in-tab="false">
+          <file leaf-file-name="app.rb" pinned="false" current="true" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/app/models/app.rb">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="71" column="104" selection-start="2155" selection-end="2155" vertical-scroll-proportion="0.0">
+                <state line="17" column="19" selection-start="308" selection-end="308" vertical-scroll-proportion="0.18313953">
                   <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="locations.html.haml" pinned="false" current="false" current-in-tab="true">
+          <file leaf-file-name="locations.html.haml" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/app/views/apps/locations.html.haml">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="2" column="924" selection-start="967" selection-end="967" vertical-scroll-proportion="0.0625">
+                <state line="2" column="924" selection-start="967" selection-end="967" vertical-scroll-proportion="-0.8333333">
                   <folding />
                 </state>
               </provider>
@@ -193,10 +193,10 @@
         <option value="$PROJECT_DIR$/app/assets/stylesheets/application.css" />
         <option value="$PROJECT_DIR$/../sinatra_project/ApexAPI.rb" />
         <option value="$PROJECT_DIR$/app/assets/javascripts/application.js" />
-        <option value="$PROJECT_DIR$/app/models/app.rb" />
         <option value="$PROJECT_DIR$/app/views/apps/locations.html.haml" />
         <option value="$PROJECT_DIR$/app/controllers/apps_controller.rb" />
         <option value="$PROJECT_DIR$/Gemfile" />
+        <option value="$PROJECT_DIR$/app/models/app.rb" />
       </list>
     </option>
   </component>
@@ -775,16 +775,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/models/app.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="71" column="104" selection-start="2155" selection-end="2155" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/views/apps/locations.html.haml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="924" selection-start="967" selection-end="967" vertical-scroll-proportion="0.0625">
+        <state line="2" column="924" selection-start="967" selection-end="967" vertical-scroll-proportion="-0.8333333">
           <folding />
         </state>
       </provider>
@@ -799,6 +792,13 @@
     <entry file="file://$PROJECT_DIR$/Gemfile">
       <provider selected="true" editor-type-id="text-editor">
         <state line="74" column="40" selection-start="1701" selection-end="1701" vertical-scroll-proportion="1.6384364">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/models/app.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="17" column="19" selection-start="308" selection-end="308" vertical-scroll-proportion="0.18313953">
           <folding />
         </state>
       </provider>
