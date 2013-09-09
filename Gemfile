@@ -71,6 +71,9 @@ gem 'haml-rails'
 # for talking to Apex API
 gem 'json'
 
+# for hosting on heroku
+gem 'rails_12factor', group: :production
+
 
 
 

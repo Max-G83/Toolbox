@@ -67,7 +67,9 @@ class App
     url = App.base_api_url + 'machine_counts.json'
     params = {'site_id' => customer_id, 'device_id' => machine_id}
     counts = JSON.parse App.post(url, params).body
-    Hash[counts.map {|k,v| [v['sku'], v['count'].to_i]}]
+    counts = counts.select { |k,v| v['sku'].present? }
+    counts = counts.map {|k,v| [v['sku'], v['count'].to_i]}
+    counts.inject({}) {|new,line| new.key?(line[0]) ? new[line[0]]+=line[1] : new[line[0]]=line[1]; new}
   end
 
   def self.transaction_summary(customer_id, machine_id, begin_date)
@@ -75,7 +77,8 @@ class App
     url = App.base_api_url + 'transaction_summary.json'
     params = {'site_id' => customer_id, 'device_id' => machine_id, 'begin_date' => begin_date, 'end_date' => Date.today.strftime('%m/%d/%Y')}
     summary = JSON.parse App.post(url, params).body
-    Hash[summary.map {|line| [line['productNum1'], line['packageQty']*line['qtyDispensed']] }]
+    summary = summary.map {|line| [line['productNum1'], line['packageQty']*line['qtyDispensed']] }
+    summary.inject({}) {|new,line| new.key?(line[0]) ? new[line[0]]+=line[1] : new[line[0]]=line[1]; new}
   end
 
   def self.transaction_details(customer_id, machine_id, begin_date, begin_time)
@@ -88,20 +91,27 @@ class App
     # Remove timezone stamp (for now)
     details = details.each { |line| line[0] = line[0].scan(/[\d -:]+/)[0]}
     details = details.select { |line| DateTime.strptime(line[0], '%Y-%m-%d %H:%M:%S') > cutoff}
-    Hash[details.map { |line| [line[1], line[2].to_i * line[3].to_i] }]
+    details = details.map { |line| [line[1], line[2].to_i * line[3].to_i] }
+    details.inject({}) {|new,line| new.key?(line[0]) ? new[line[0]]+=line[1] : new[line[0]]=line[1]; new}
   end
 end
 
 class Location < App
   def self.calculate(customer_id, machine_id, begin_date, begin_time)
-    begin_time == '00:00:00' ? details = {} : details = App.transaction_details(customer_id, machine_id, begin_date, begin_time)
+    if begin_time == '00:00:00'
+      details = {}
+    else
+      details = App.transaction_details(customer_id, machine_id, begin_date, begin_time)
+      begin_date = (Date.strptime(begin_date, '%m/%d/%Y') + 1).strftime('%m/%d/%Y')
+    end
     parts_info = App.parts_info(customer_id)
     counts = App.machine_counts(customer_id, machine_id)
     summary = App.transaction_summary(customer_id, machine_id, begin_date)
-    counts = counts.keys.each { |key| counts[key] = counts[key] * parts_info[key]}
+    counts = counts.each { |k,v| counts[k] *= parts_info[k]}
     # collapse details into summary, summary into counts
-    details.keys.each { |key| summary.key?(key) ? summary[key] += details[key] : summary[key] = details[key] }
-    summary.keys.each { |key| counts.key?(key) ? counts[key] += summary[key] : counts[key] = summary[key] }
-    counts
+    details.each { |k, v| summary.key?(k) ? summary[k] += details[k] : summary[k] = details[k] }
+    summary.each { |k, v| counts.key?(k) ? counts[k] += summary[k] : counts[k] = summary[k] }
+    counts = counts.inject('') {|str, (k, v)| str + "#{k}\t#{v}\n"}
+    counts.gsub(/\[.*?\]/,'')
   end
 end

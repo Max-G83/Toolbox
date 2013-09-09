@@ -2,17 +2,19 @@ class AppsController < ApplicationController
   layout 'apps'
 
   def locations
-    if session[:logged_in]
+    if session[:logged_in].present?
       session[:customers] = App.customers
       session[:machines] = App.machines
     end
-    if params[:customer_id]
+    # so naive ...
+    if params[:customer_id].present? and !params[:machine_id].present? and !params[:begin_date].present? and !params[:begin_time].present?
       flash[:machines] = session[:machines].select { |k,v| session[:machines][k]['siteId'] == params[:customer_id]}
       flash[:selected] = params[:customer_id]
       render 'locations'
     end
-    if params[:machine_id] and params[:begin_date] and params[:begin_time]
-
+    if params[:machine_id].present? and params[:begin_date].present? and params[:begin_time].present?
+      @report = Location.calculate(params[:customer_id], params[:machine_id], params[:begin_date], params[:begin_time])
+      render 'locations'
     end
   end
 
@@ -37,7 +39,7 @@ class AppsController < ApplicationController
 
   def logout
     session.destroy
-    App.username, App.password = nil, nil
+    #App.username, App.password = nil, nil
     redirect_to :back
   end
 end

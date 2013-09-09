@@ -18,11 +18,23 @@
 //= require_tree .
 
 TB = {};
+
 TB.datepicker = $(function() {
     $('.datepicker').datepicker();
 });
+
 TB.timepicker = $(function() {
     $('.timepicker').timepicker({
         timeFormat: "HH:mm:ss"
     });
+});
+
+TB.fast_submit = $(function() {
+    $('.fast_submit').change(function() {
+        this.form.submit();
+    });
+});
+
+TB.suppress = $(function() {
+    $('.hide_if_JS').hide()
 });
