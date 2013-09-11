@@ -113,6 +113,7 @@ class Location < App
     # collapse details into summary, summary into counts
     details.each { |k, v| summary.key?(k) ? summary[k] += details[k] : summary[k] = details[k] }
     summary.each { |k, v| counts.key?(k) ? counts[k] += summary[k] : counts[k] = summary[k] }
+    counts = counts.select {|k,v| v>0 }
     counts = counts.inject('') {|str, (k, v)| str + "#{k}\t#{v}\n"}
     counts.gsub(/\[.*?\]/,'')
   end
